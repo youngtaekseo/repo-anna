@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+        }
+
+        .container {
+            padding: 20px;
+            
+        }
+
+        .post-card {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .profile h6 {
+            margin-bottom: 0;
+        }
+
+        .post-img {
+            width: 100%;
+            border-radius: 10px;
+            
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+            aspect-ratio: 5/5; /* 이미지의 가로세로 비율을 16:9로 설정 */
+        }
+
+        .post-img:hover {
+            transform: scale(1.1);
+        }
+
+        .comments .comment {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .comment strong {
+            font-weight: bold;
+        }
+
+        .comment p {
+            margin: 5px 0;
+        }
+
+        .comment-form .input-group {
+            width: 100%;
+        }
+
+        .small-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .small-img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Porto - Bootstrap eCommerce Template</title>
+
+	<meta name="keywords" content="HTML5 Template" />
+	<meta name="description" content="Porto - Bootstrap eCommerce Template">
+	<meta name="author" content="SW-THEMES">
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="assets/images/icons/favicon.png">
+
+
+	<script>
+        WebFontConfig = {
+            google: { families: ['Playfair+Display:200,300,400,400italic,500,600,700,700italic,800,900italic', 'Poppins:200,300,400,500,600,700,800', 'Oswald:300,600,700'] }
+        };
+        (function (d) {
+            var wf = d.createElement('script'), s = d.scripts[0];
+            wf.src = 'assets/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
+
+	<!-- Plugins CSS File -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<!-- Main CSS File -->
+	<link rel="stylesheet" href="assets/css/demo34.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+
+		<header class="header">
+            <div class="header-middle sticky-header font2">
+                <div class="container-fluid">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler pl-0" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <a href="/index" class="logo">
+                            <img src="img/logo.png" alt="Logo" width="111" height="44">
+                        </a>
+                        <!--메인메뉴-->
+                        <div th:replace="~{infra/include/body :: menu(0)}"></div>
+                        
+						<div class="align-items-center ml-5">
+							<nav aria-label="breadcrumb" class="breadcrumb-nav">
+								<div class="container">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item" style="color: blue;"><a href="/index"><b>Home</b></a></li>
+										<li class="breadcrumb-item active" aria-current="page">room</li>
+									</ol>
+								</div>
+							</nav>
+						</div>
+                    </div>
+                    
+					<!--우측메뉴-->
+                    <div th:replace="~{infra/include/body :: menuRight}"></div>
+                </div>
+            </div>
+        </header><!-- End .header -->
+
+		<main class="main">
+			<!-- <nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
+						<li class="breadcrumb-item active" aria-current="page">Blog Post</li>
+					</ol>
+				</div>End .container 
+			</nav>-->
+			<form  id='forminsert' name ='forminsert' method='get' >
+			<input type="hidden" id="romSeq" name="romSeq" th:value="${item.romSeq}">
+			<div class="">
+				<div class="row">
+					<div class="col-lg-12">
+						<article class="post single">
+							
+							
+							<div class="container">
+								<div class="row justify-content-md-center">
+									<div class="col-md-8">
+										<div class="card post-card">
+											<div class="card-body">
+												<div class="row align-items-center">
+                                                    <div class="col-12 mt-3">
+														<div class="comments mt-3">
+															<div class="comment">
+																<strong>방제목</strong>
+															</div>
+															<!-- More comments go here -->
+															<div class="comment-form mt-3">
+																<!-- 부트스트랩 5 폼 컨트롤 사용 -->
+																
+																<div class="input-group">
+																	<input id="romTitle" name="romTitle" type="text" th:value="${item.romTitle}"
+																	class="form-control" placeholder="Add a comment..." aria-label="Add a comment..." aria-describedby="button-addon2">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 mt-1">
+														<div class="comments mt-3">
+															<div class="comment">
+																<strong>인원</strong>
+															</div>
+															<!-- More comments go here -->
+															<div class="comment-form mt-3">
+																<div class="product-single-qty">
+								                                    <input th:value="${item.romPersonnel}" id ="romPersonnel" name ="romPersonnel" class="horizontal-quantity form-control" type="text">
+								                                </div>
+															</div>
+														</div>
+													</div>
+                                                    <div class="col-12 mt-3 comment">
+                                                    	
+                                                        <strong>커버 선택</strong>
+                                                    </div>
+                                                    
+                                                    <div class="col-4 mt-3 ">
+                                                        <img src="https://via.placeholder.com/600x400" alt="Post Image" class="img-fluid post-img " id="mainImg">
+                                                    </div>
+													<div class="col-8 mt-3 align-center">
+														<!-- <img src="https://via.placeholder.com/600x400" alt="Post Image" class="img-fluid post-img" id="mainImg"> -->
+                                                        
+														<div class="row">
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/FF5733/FFFFFF" alt="Small Image 1" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/FF5733/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/C70039/FFFFFF" alt="Small Image 2" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/C70039/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/900C3F/FFFFFF" alt="Small Image 3" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/900C3F/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/581845/FFFFFF" alt="Small Image 4" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/581845/FFFFFF')">
+															</div>
+                                                            <div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/FF5733/FFFFFF" alt="Small Image 1" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/FF5733/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/C70039/FFFFFF" alt="Small Image 2" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/C70039/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/900C3F/FFFFFF" alt="Small Image 3" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/900C3F/FFFFFF')">
+															</div>
+															<div class="col-6 col-sm-4 col-md-3">
+																<img src="https://via.placeholder.com/150/581845/FFFFFF" alt="Small Image 4" class="small-img" onclick="changeMainImg('https://via.placeholder.com/600x400/581845/FFFFFF')">
+															</div>
+														</div>
+													</div>
+                                                    <div class="col-8 mt-3">
+                                                        <div class="comment">
+                                                            <strong>방설명</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+													  <textarea th:text="${item.romNote}" id="romNote" name ="romNote" class="form-control"   rows="3"></textarea>
+													</div>
+													<div class="col-12">
+													<button id="btn" name="btn" class="btn btn-dark btn-rounded btn-lg float-right" style="margin-top: 30px">수정하기</button>
+													  <!-- <ul class="btn-list">
+															<li><button class="btn btn-default btn-rounded btn-md">default</button></li>
+															<li><button class="btn btn-success btn-rounded btn-md">success</button></li>
+															<li><button class="btn btn-info btn-rounded btn-md">info</button></li>
+															<li><button class="btn btn-warning btn-rounded btn-md">warning</button></li>
+															<li><button class="btn btn-danger btn-rounded btn-md">danger</button></li>
+															<li><button class="btn btn-primary btn-rounded btn-md">primary</button></li>
+															<li><button class="btn btn-secondary btn-rounded btn-md">secondary</button></li>
+															<li><button class="btn btn-dark btn-rounded btn-md">dark</button></li>
+														</ul> -->
+													</div>
+                                                </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</article><!-- End .post -->
+
+					<hr class="mt-2 mb-1">
+
+						<div class="related-posts">
+
+						</div>
+					</div>
+
+					<div class="sidebar-toggle custom-sidebar-toggle">
+						<i class="fas fa-sliders-h"></i>
+					</div>
+					<div class="sidebar-overlay"></div>
+				
+				</div>
+			</div>
+			</form>
+		</main>
+	</div>
+
+		<footer th:replace="~{infra/include/body :: footer}"></footer>
+	<!-- Plugins JS File -->
+	<script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+    <script src="assets/js/optional/isotope.pkgd.min.js"></script>
+    <script src="assets/js/jquery.appear.min.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+
+	<!-- Main JS File -->
+	<script src="assets/js/main.min.js"></script>
+	<script>
+        function changeMainImg(imgSrc) {
+            document.getElementById("mainImg").src = imgSrc;
+        }
+        let goupdate = "/chatupdates";
+        let form = document.querySelector("form[name=forminsert]")
+        
+        
+        document.getElementById("btn").onclick =function(){
+        	form.action = goupdate;
+        	form.submit();
+        }
+    </script>
+</body>
+
+</html>

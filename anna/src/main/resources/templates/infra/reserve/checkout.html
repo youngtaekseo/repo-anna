@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <div th:replace="~{infra/include/head :: head}"></div>
+</head>
+
+<body>
+	<form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" id="plcSeq" name="plcSeq" th:value="${plcSeq}">
+	    <div class="page-wrapper">
+		    <header class="header">
+	            <div class="header-middle sticky-header font2">
+	                <div class="container-fluid">
+	                    <div class="header-left">
+	                        <button class="mobile-menu-toggler pl-0" type="button">
+	                            <i class="fas fa-bars"></i>
+	                        </button>
+	                        <a href="/index" class="logo mr-5">
+	                            <img src="img/logo.png" alt="Logo" width="111" height="44">
+	                        </a>
+	                        <!--메인메뉴-->
+	                        <div th:replace="~{infra/include/body :: menu(0)}"></div>
+	                        
+							<div class="align-items-center ml-5">
+								<nav aria-label="breadcrumb" class="breadcrumb-nav">
+									<div class="container">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item" style="color: blue;">
+												<a href="/index"><i class="fas fa-fish">&nbsp;</i><b>Home</b></a>
+											</li>
+											<li class="breadcrumb-item active" aria-current="page">Reservation</li>
+										</ol>
+									</div>
+								</nav>
+							</div>
+	                    </div>
+	                    
+						<!--우측메뉴-->
+	                    <div th:replace="~{infra/include/body :: menuRight}"></div>
+	                </div>
+	            </div>
+	        </header>
+	        <!-- End .header -->
+	
+	        <main class="main main-test">
+	            <div class="container checkout-container">
+	                <div class="row">
+	                    <div class="col-lg-12">
+	                        <div class="order-summary">
+	                            <h3>결제정보</h3>
+	                            <table class="table table-mini-cart">
+	                                <thead>
+	                                    <tr>
+	                                        <th>업체명</th>
+	                                        <th>예약날짜</th>
+	                                        <th>낚시터종류</th>
+	                                        <th>좌석번호</th>
+	                                        <th>결제금액</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <th id="plcName" name="plcName" th:value="${plcName}" th:text="${plcName}"></th>
+	                                        <th id="revDate" name="revDate" th:value="${revDate}" th:text="${revDate}"></th>
+	                                        <th id="revPlaceCd" name="revPlaceCd" th:value="${plcTypeCd}" th:text="${@codeService.selectOneCachedCode(plcTypeCd)} + '낚시'"></th>
+	                                        <th id="revSeat" name="revSeat" th:value="${revSeat}" th:text="${revSeat} +'번'"></th>
+	                                        <th id="plcAmount" name="plcAmount" th:value="${plcAmount}" th:text="${#numbers.formatInteger(plcAmount,1,'COMMA')} + '원'"></th>
+	                                    </tr>
+	                                </tbody>
+	                                
+	                            </table>
+	                        </div>
+	                        <div class="order-summary">
+	                            <div class="shipping-info">
+	                                <h3 class="">일반결제</h3>
+	                                <div class="row">
+	                                    <div class="col-6">
+	                                        <div class="select-custom">
+	                                            <h4>카드사명<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <select name="orderby" class="form-control">
+	                                                <option value="">선택</option>
+	                                                <option value="1">신한</option>
+	                                                <option value="2">삼성</option>
+	                                                <option value="3">농협</option>
+	                                            </select>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-6">
+	                                        <div class="form-group">
+	                                            <h4>성함<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <input type="text" class="form-control" required />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-12">
+	                                        <div class="form-group">
+	                                            <h4>카드번호<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <input type="text" class="form-control" required />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <div class="form-group">
+	                                            <h4>MM<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <input type="text" class="form-control" required />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <div class="form-group">
+	                                            <h4>YY<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <input type="text" class="form-control" required />
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <div class="form-group">
+	                                            <h4>cvc<abbr class="required" title="required">*</abbr></label></h4>
+	                                            <input type="text" class="form-control" required />
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <button type="submit" class="btn btn-dark btn-place-order" id="additional" name="additional">결제하기</button>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </main>
+	    </div>
+	</form>
+    <footer th:replace="~{infra/include/body :: footer}"></footer>
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="assets/js/main.min.js"></script>
+    <script type="text/javascript">
+    
+    document.getElementById("additional").onclick = function () {
+		insertCall();
+	}
+		 let form = document.querySelector("form[name=formName]")
+		 
+		 insertCall = function() {
+				if(validationUpdt() == false){
+					return false;				
+				}else {
+					form.action = "/insert";
+					form.submit();
+				}
+			}
+		 function validationUpdt() {
+			 /* if(!checkOnlyKoreanEnglish('mbName', 2, 0, "회원이름은 한글, 영문대소문자만 입력 가능합니다.")) return false;
+				if(!checkEmail('mbEmail', 2, 0, "이메일은 영대소문자, 숫자만 입력 가능합니다.")) return false;
+				if(!checkPassword('password', 2, 0, "비밀번호는 특수문자(!,@,#,$,%,^,&,*) 영대소문자, 숫자가 포함되어야 입력이 가능합니다.")) return false;
+				if(!checkOnlyKoreanNumber('mbPhoneNumber', 2, 0, "예비1 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+				if(!checkOnlyEnglishNumber('ifcdReferenceV3', 2, 1, "예비3 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+				if(!checkOnlyEnglishNumber('ifcdReferenceV4', 2, 1, "예비4 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;		
+				if(!checkOnlyNumber('ifcdReferenceI1', 2, 1, 1, -128, 127, "예비1 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+				if(!checkOnlyNumber('ifcdReferenceI2', 2, 1, 1, -128, 127, "예비2 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+				if(!checkOnlyNumber('ifcdReferenceI3', 2, 1, 1, -128, 127, "예비3 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+				if(!checkOnlyNumber('ifcdReferenceI4', 2, 1, 1, -128, 127, "예비4 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+			 */	
+			}
+    </script>
+</body>
+
+</html>

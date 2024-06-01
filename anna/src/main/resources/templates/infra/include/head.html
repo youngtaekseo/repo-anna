@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>유체이탈(자유를 찾아서)</title>
+
+    <meta name="keywords" content="TEAM PROJECT ONE-Q" />
+    <meta name="description" content="TEAM PROJECT ONE-Q">
+    <meta name="author" content="ONE-Q TEAM">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+
+    <script>
+        WebFontConfig = {
+            google: { families: ['Playfair+Display:200,300,400,400italic,500,600,700,700italic,800,900italic', 'Poppins:200,300,400,500,600,700,800', 'Oswald:300,600,700'] }
+        };
+        (function (d) {
+            var wf = d.createElement('script'), s = d.scripts[0];
+            wf.src = 'assets/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
+    
+	<!-- Main CSS File -->
+	<!--<link rel="stylesheet" href="assets/css/demo34.min.css">-->
+	<link rel="stylesheet" href="assets/css/demo4.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
+    	
+	<!-- Plugins CSS File -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/style.min.css">
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	
+	<!-- 달력 CSS File -->
+    <link rel="stylesheet" type="text/css" href="css/date.css">
+    
+    <!-- 사용자 스크립트 -->
+    <script src="js/validation.js"></script>
+    <script src="js/paging.js"></script>
+    <script src="js/search.js"></script>   
+    <script src="js/modal.js"></script>
+    
+</div>
+
+<div th:fragment="date">
+    <section style="background-color: #f4f4f4;   display: grid; place-items: center;">
+		<input type="hidden" id="dateYear" name="dateYear" />
+		<input type="hidden" id="dateMonth" name="dateMonth" />
+		<input type="hidden" id="dateDay" name="dateDay" />
+		
+	    <div style="margin: 30px;">
+	        <div class="month-container">
+	          <!-- 이전 월로 이동하는 버튼 -->
+	          <button type="button" id="prevMonth" class="btnDay btn btn-primary btn-arrow">
+				  <i class="fa fa-angle-left"></i>
+			  </button>
+	          <!-- 현재 월과 년도를 표시하는 부분 -->
+	          <h2 id="month"></h2>
+	          <!-- 다음 월로 이동하는 버튼 -->
+	          <button type="button" id="nextMonth" class="btnDay btn btn-primary btn-arrow">
+				  <i class="fa fa-angle-right"></i>
+			  </button>
+	        </div>
+	        <!-- 날짜를 표시하는 컨테이너 -->
+	        <div class="date-container" id="dateContainer">
+	          <!-- 날짜 버튼들은 JavaScript를 통해 동적으로 추가됩니다. -->
+	        </div>
+	    </div>
+	</section>
+</div>
+
+</html>

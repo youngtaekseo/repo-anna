@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{infra/include/head :: head}"></div>
+	
+    <style>
+		.reservation {
+		    margin: 0 auto;
+		    padding: 15px;
+		    max-width: 1400px; /* 기본 영역의 최대 너비를 늘림 */
+		    background-color: #f8f9fa; /* 배경색 */
+		}
+		
+		@media (min-width: 768px) {
+		    .reservation {
+		        padding: 30px; /* 패딩 증가 */
+		    }
+		}
+		
+		@media (min-width: 992px) {
+		    .reservation {
+		        padding: 50px; /* 패딩 추가 증가 */
+		    }
+		}
+		
+		@media (min-width: 1200px) {
+		}
+		.product-default {
+		    align-items: stretch; /* 자식 요소의 높이를 동일하게 맞춤 */
+		}
+		
+		.product-details {
+		    flex-grow: 1;
+		}
+		
+		.product-action.right-align {
+		    align-self: flex-end;
+		}
+    </style>
+</head>
+
+<body>
+	<form name="formList" id="formList" method="post" autocomplete="off">
+	<!-- <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
+	    <div class="page-wrapper">
+	        <header class="header">
+	            <div class="header-middle sticky-header font2">
+	                <div class="container-fluid">
+	                    <div class="header-left">
+	                        <button class="mobile-menu-toggler pl-0" type="button">
+	                            <i class="fas fa-bars"></i>
+	                        </button>
+	                        <a href="/index" class="logo mr-5">
+	                            <img src="img/logo.png" alt="Logo" width="111" height="44">
+	                        </a>
+	                        <!--메인메뉴-->
+	                        <div th:replace="~{infra/include/body :: menu(0)}"></div>
+	                        
+							<div class="align-items-center ml-5">
+								<nav aria-label="breadcrumb" class="breadcrumb-nav">
+									<div class="container">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item" style="color: blue;">
+												<a href="/index"><i class="fas fa-fish">&nbsp;</i><b>Home</b></a>
+											</li>
+											<li class="breadcrumb-item active" aria-current="page">Reservation</li>
+										</ol>
+									</div>
+								</nav>
+							</div>
+	                    </div>
+						<!--우측메뉴-->
+	                    <div th:replace="~{infra/include/body :: menuRight}"></div>
+	                </div>
+	            </div>
+	            <!--예약일자-->
+				<div th:replace="~{infra/include/head :: date}"></div>	
+	        </header>
+	
+	        <main class="main">
+	            <!-- 낚시 좌대 리스트 -->
+	            <div class="reservation">
+	                <nav aria-label="breadcrumb" class="breadcrumb-nav">
+	                    <ol class="breadcrumb">
+	                        <li class="breadcrumb-item"><a href="demo34.html"><i class="icon-home"></i></a></li>
+	                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+	                    </ol>
+	                </nav>
+	                <div class="row">
+	                    <div class="col-lg-12 main-content">
+	                        <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
+	                            <div class="toolbox-left">
+	                                <div class="toolbox-item toolbox-sort">
+	                                    <label>낚시 종류 선택:</label>
+	                                    <div class="select-custom">
+	                                        <select name="orderby" class="form-control">
+	                                            <option value="menu_order">좌대낚시</option>
+	                                            <option value="popularity">배낚시</option>
+	                                        </select>
+	                                    </div>
+	                                </div><!-- End .toolbox-item -->
+	                            </div><!-- End .toolbox-left -->
+	                            <!-- 페이징 -->
+	                            <div class="toolbox-right">
+	                                <div class="toolbox-item toolbox-show">
+	                                    <div class="select-custom">
+	                                        <select name="count" class="form-control">
+	                                            <option value="9">9</option>
+	                                            <option value="18">18</option>
+	                                            <option value="36">36</option>
+	                                        </select>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </nav>
+	                        <div class="row pb-4">
+	                            <div class="col-sm-12 col-6 product-default left-details product-list mb-2" th:each= "list : ${list}">
+	                                <!-- 메인 이미지 -->
+	                                <figure>
+	                                    <a th:href="@{/seat(plcSeq=${list.plcSeq})}">
+	                                        <img src="" width="250" height="250" alt="product" />
+	                                    </a>
+	                                </figure>
+	                                <div class="product-details" >
+	                                    <!-- 예약카테고리표기(좌대낚시, 배낚시) -->
+	                                    <div class="category-list">
+	                                        <a class="product-category" th:text="${@codeService.selectOneCachedCode(list.plcTypeCd)}+'낚시'"></a>
+	                                    </div>
+	                                    <!-- 제품명 -->
+	                                    <h3 class="product-title" th:text="${list.plcName}"> <a href="product.html"></a> </h3>
+	                                    <!-- 별점 수정 및 삭제예정 -->
+	                                    <!-- <div class="ratings-container">
+	                                        <div class="product-ratings">
+	                                            <span class="ratings" style="width:100%"></span>
+	                                            End .ratings
+	                                            <span class="tooltiptext tooltip-top"></span>
+	                                        </div>
+	                                        End .product-ratings
+	                                    </div> -->
+	                                    <!-- End .product-container -->
+	                                    <!-- 예약 설명 -->
+	                                    <p th:text="'운영시간 : '+ ${list.plcOperatingFrom} + '시' + ' ~ ' + ${list.plcOperatingTo} + '시'"></p>
+	                                    <p th:text="'제공시설 및 물품 : ' + ${list.plcNote}"></p>
+	                                    <!-- 금액 -->
+	                                    <div class="price-box">
+	                                        <span class="product-price" th:text="${#numbers.formatInteger(list.plcAmount,1,'COMMA')} + '원'"></span>
+	                                    </div>
+	                                    <!-- End .price-box -->
+	                                </div>
+									<button type="submit" class="btn btn-dark"><a th:href="@{/seat(plcSeq=${list.plcSeq})}">예약하기</a></button>
+	                                <!-- End .product-details -->
+	                            </div>
+	                        </div>
+	                        <nav class="toolbox toolbox-pagination">
+	                            <div class="toolbox-item toolbox-show"><!-- 공백 --></div>
+	                            <!-- 페이징 -->
+	                            <ul class="pagination toolbox-item">
+	                                <li class="page-item disabled">
+	                                    <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
+	                                </li>
+	                                <li class="page-item active">
+	                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+	                                </li>
+	                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+	                                <li class="page-item"><span class="page-link">...</span></li>
+	                                <li class="page-item">
+	                                    <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
+	                                </li>
+	                            </ul>
+	                        </nav>
+	                    </div>
+	                </div>
+	            </div>
+	        </main>
+	    </div>
+	</form>
+	<footer th:replace="~{infra/include/body :: footer}"></footer>
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>    
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+    <script src="assets/js/nouislider.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="assets/js/main.min.js"></script>
+</body>
+
+</html>
