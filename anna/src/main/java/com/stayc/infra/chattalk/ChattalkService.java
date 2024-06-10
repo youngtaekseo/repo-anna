@@ -1,11 +1,14 @@
 package com.stayc.infra.chattalk;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 
 @Service
 public class ChattalkService {
@@ -27,12 +30,18 @@ public class ChattalkService {
 //	파이어 베이스 인설트 테스트
 	public void chattinginst(ChattalkDto dto ) throws Exception {
 		String roomSeq = String.valueOf(dto.getRomSeq());
-		//ApiFuture<WriteResult> apiFuture = firestore.collection("fishing").document("user_3").set(dto);
-		ApiFuture<DocumentReference> apiFuture = firestore.collection(roomSeq).document(dto.getMbrSeq()).collection("messages").add(dto);
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();         
+		String nowtime = date.format(now);
+
+		ApiFuture<WriteResult> apiFuture = firestore.collection(roomSeq).document(nowtime).set(dto);
 
 	    // ApiFuture 결과 처리
-	    DocumentReference documentReference = apiFuture.get(); // 블로킹 호출
-	    System.out.println("Document added with ID: " + documentReference.getId());
+		 WriteResult writeResult = apiFuture.get(); // 블로킹 호출
+
+        
+        //DocumentReference documentReference = firestore.collection(roomSeq).document(rtkSeq);
+        //System.out.println("Document added with ID: " + documentReference.getId());
 
     }
 

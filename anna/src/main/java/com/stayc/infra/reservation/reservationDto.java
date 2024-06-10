@@ -17,6 +17,7 @@ public class reservationDto {
 	private Integer plcDelNy;		// 삭제여부
 	private Date plcRegDt;			// 등록일시
 	private Date plcModDt;			// 수정일시
+	private Integer xCount;
 //	장소(place)	
 
 //	물고기(fish)
@@ -48,6 +49,10 @@ public class reservationDto {
 	private Date revModDt;			// 수정일시
 	private String mbrSeq;			// 회원순번
 //	예약(reservation)
+	
+	private String reservDD;		// 예약일
+	private String reservMM;		// 예약월
+	private String reservYY;		// 예약년도
 	
 	public String getPlcSeq() {
 		return plcSeq;
@@ -247,7 +252,28 @@ public class reservationDto {
 	public void setMbrSeq(String mbrSeq) {
 		this.mbrSeq = mbrSeq;
 	}
-
-	
-	
+	public String getReservDD() {
+		return reservDD;
+	}
+	public void setReservDD(String reservDD) {
+		this.reservDD = reservDD;
+	}
+	public String getReservMM() {
+		return reservMM;
+	}
+	public void setReservMM(String reservMM) {
+		this.reservMM = reservMM;
+	}
+	public String getReservYY() {
+		return reservYY;
+	}
+	public void setReservYY(String reservYY) {
+		this.reservYY = reservYY;
+	}
+	public Integer getxCount() {
+		return xCount;
+	}
+	public void setxCount(Integer xCount) {
+		this.xCount = xCount;
+	}
 }
